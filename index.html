@@ -1,0 +1,60 @@
+<style>
+    .diet_form {
+        background: #eaf4ff;
+        padding: 10px 30px;
+    }
+    form dl dt {
+        width: 200px;
+        height: 40px;
+        padding: 10px 0;
+        line-height: 40px;
+        float: left;
+    }
+    form dl dd {
+        padding: 10px 0;
+        margin: 0;
+    }
+    .box {
+        box-sizing: border-box;
+        width: 150px !important;
+        height: 40px !important;
+        margin: 0 !important;
+        padding: 0 10px !important;
+    }
+    .calc-btn {
+        width: 80px;
+        height: 30px;
+        border: 1px solid #333;
+    }
+    .calc-btn:hover {
+        cursor: pointer;
+    }
+    </style>
+    <form class="diet_form">
+        <dl>
+            <dt>体重(kg)：</dt>
+            <dd><input type="number" class="box" name="weight"></dd>
+            <dt>体脂肪率(%)：</dt>
+            <dd><input type="number" class="box" name="bfp"></dd>
+            <p><input type="button" class="calc-btn" onclick="calc(weight.value, bfp.value);" value="計算"></p>
+            <dt>徐脂肪体重(kg)：</dt>
+            <dd><input id="lean" class="box" type="text" readonly=""></dd>
+            <dt>摂取可能カロリー(kcal)：</dt>
+            <dd><input id="cal" class="box" type="text" readonly=""></dd>
+            <dt>タンパク質(g)：</>
+            <dd><input id="protein" class="box" type="text" readonly=""></dd>
+            <dt>脂質(g)：</dt>
+            <dd><input id="fat" class="box" type="text" readonly=""></dd>
+            <dt>炭水化物(g)：</dt>
+            <dd><input id="carbo" class="box" type="text" readonly=""></dd>
+        </dl>
+    </form>
+    <script>
+        function calc(weight, bfp) {
+            const lean_value = document.getElementById('lean').value = Math.round((weight - (weight * (bfp / 100))) * 100) / 100;
+            const cal_value = document.getElementById('cal').value = Math.round(lean_value * 40);
+            const protein_value = document.getElementById('protein').value = Math.round(lean_value * 2);
+            const fat_value = document.getElementById('fat').value = Math.round(lean_value * 0.9);
+            const carbo_value = document.getElementById('carbo').value = Math.round((cal_value - (protein_value * 4) - (fat_value * 9)) / 4);
+        }
+    </script>
