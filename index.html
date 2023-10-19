@@ -6,11 +6,11 @@
   margin: 0 auto;
 }
    .diet_form {
-        background: red;
+        background: #eaf4ff;
         padding: 10px 30px;
     }
     form dl dt {
-        width: 20px;
+        width: 200px;
         height: 40px;
         padding: 10px 0;
         line-height: 40px;
@@ -38,29 +38,37 @@
     </style>
     <form class="diet_form">
         <dl>
-            <dt>体重(kg)：</dt>
-            <dd><input type="number" class="box" name="weight"></dd>
-            <dt>体脂肪率(%)：</dt>
-            <dd><input type="number" class="box" name="bfp"></dd>
-            <p><input type="button" class="calc-btn" onclick="calc(weight.value, bfp.value);" value="計算"></p>
-            <dt>徐脂肪体重(kg)：</dt>
-            <dd><input id="lean" class="box" type="text" readonly=""></dd>
-            <dt>摂取可能カロリー(kcal)：</dt>
-            <dd><input id="cal" class="box" type="text" readonly=""></dd>
-            <dt>タンパク質(g)：</>
-            <dd><input id="protein" class="box" type="text" readonly=""></dd>
-            <dt>脂質(g)：</dt>
-            <dd><input id="fat" class="box" type="text" readonly=""></dd>
-            <dt>炭水化物(g)：</dt>
-            <dd><input id="carbo" class="box" type="text" readonly=""></dd>
+            <dt>元の値段は？：</dt>
+            <dd><input type="number" class="box" name="price"></dd>
+            <dt>何％OFF？ ：</dt>
+            <dd><input type="number" class="box" name="percent"></dd>
+            <dt>何割引？：</dt>
+            <dd><input type="number" class="box" name="discount"></dd>
+
+            <p><input type="button" class="calc-btn" onclick="calc(price.value, percent.value,discount.value);" value="計算"></p>
+           
+            <dt>払う金額(％)：</dt>
+            <dd><input id="pay1" class="box" type="text" readonly=""></dd>
+            <dt>安くなった金額(％)：</dt>
+            <dd><input id="cheap1" class="box" type="text" readonly=""></dd>
+            <dt>払う金額(割引)：</dt>
+            <dd><input id="pay2" class="box" type="text" readonly=""></dd>
+            <dt>安くなった金額(割引)：</dt>
+            <dd><input id="cheap2" class="box" type="text" readonly=""></dd>
+            <dt>税込み価格：</dt>
+            <dd><input id="pay3" class="box" type="text" readonly=""></dd>
+            <dt>税抜き価格：</dt>
+            <dd><input id="cheap4" class="box" type="text" readonly=""></dd>
+            
         </dl>
     </form>
     <script>
-        function calc(weight, bfp) {
-            const lean_value = document.getElementById('lean').value = Math.round((weight - (weight * (bfp / 100))) * 100) / 100;
-            const cal_value = document.getElementById('cal').value = Math.round(lean_value * 40);
-            const protein_value = document.getElementById('protein').value = Math.round(lean_value * 2);
-            const fat_value = document.getElementById('fat').value = Math.round(lean_value * 0.9);
-            const carbo_value = document.getElementById('carbo').value = Math.round((cal_value - (protein_value * 4) - (fat_value * 9)) / 4);
+        function calc(price,percent,discount) {
+            const pay1_value = document.getElementById('pay1').value = Math.round(price-(price * (percent/100))) ;
+            const cheap1_value = document.getElementById('cheap1').value = Math.round(price * (percent/100));
+            const pay2_value = document.getElementById('pay2').value = Math.round(price-(price * (discount/10))) ;
+            const cheap2_value = document.getElementById('cheap2').value = Math.round(price * (discount/10));
+            const pay3_value = document.getElementById('pay3').value = Math.round(price * 1.1) ;
+            const pay4_value = document.getElementById('cheap4').value = Math.round(price * 0.9);
         }
     </script>
